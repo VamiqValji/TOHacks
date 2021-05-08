@@ -4,7 +4,7 @@ export interface response {
 }
 
 export interface formResponse {
-    user: string,
+    name: string,
     email: string,
     date: string,
     questionsAndResponses: response[],

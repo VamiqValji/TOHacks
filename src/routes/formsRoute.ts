@@ -2,7 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import forms from "../models/formsModel";
 import users from "../models/usersModel";
-import {form as formInterface, usersInterface} from "../ts/interface";
+import {form as formInterface, formResponse, usersInterface} from "../ts/interface";
 
 const router = express.Router();
 
@@ -45,11 +45,32 @@ router.post("/create", async (req, res) => {
     foundUser.forms.push({ pointer: newForm.id });
 
     await newForm.save();
-
+    
     foundUser.markModified("forms");
     await foundUser.save();
 
     return res.status(201).json({success: true, message: `Created form: '${title}'.`, data: newForm});
+});
+
+router.post("/respond", async (req, res) => {
+
+    const { name, email, questionsAndResponses, formId }/*:formResponse*/ = req.body;
+    
+    const valuesAreValid = name && email && questionsAndResponses && formId;
+    if (!valuesAreValid) return res.status(400).json({success: false, message: "Invalid values. Required: name, email, questionsAndResponses, formId"});
+
+    const foundForm:mongoose.Document & formInterface = await forms.findOne({ formId });
+    if (!foundForm) return res.status(400).json({success: false, message: "Invalid formId"});
+
+    let formResponse = {
+        name, email, questionsAndResponses, date: new Date().toUTCString()
+    };
+    foundForm.responses.push(formResponse);
+
+    foundForm.markModified("responses");
+    await foundForm.save();
+
+    return res.status(201).json({success: true, message: `Responded as: '${name}'.`, data: foundForm});
 });
 
 export default router;
