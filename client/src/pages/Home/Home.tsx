@@ -1,10 +1,7 @@
 import React from 'react';
-import { Text, Box, Flex, Input, InputGroup, Button, InputRightElement} from "@chakra-ui/react"
+import { Text, Input, InputGroup, Button, InputRightElement} from "@chakra-ui/react"
 import axios from 'axios';
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
     Link
   } from "react-router-dom";
 
@@ -18,11 +15,11 @@ const Home: React.FC<HomeProps> = () => {
     const [email, setEmail] = React.useState("");
 
     const [show, setShow] = React.useState(false)
-    const handleClick = () => setShow(!show)
     
     const [isLoad, setIsLoad] = React.useState(false);
 
     const meow = async () =>  {
+        if(!password) return;
         if(password === confirmPassword) {
             setIsLoad(true);
             const {data} =  await axios.post("http://localhost:3001", {
@@ -30,14 +27,16 @@ const Home: React.FC<HomeProps> = () => {
                 password,
                 email
             })
-            setIsLoad(false);
+            
         } else {
             alert("Passwords do not match!")
         }
+        setIsLoad(false);
         
         //await axios.get("localhost");
         
     }
+
 
     return (
     <>
@@ -64,7 +63,7 @@ const Home: React.FC<HomeProps> = () => {
             type={show ? "text" : "password"}
         />
         <InputRightElement width="4.5rem">
-        <Button h="1.75rem" size="sm" onMouseEnter={() => setShow(true)} onMouseLeave={() => setShow(false)}>
+        <Button h="1.75rem" size="sm" onClick={() => setShow(!show)}>
           {show ? "Hide" : "Show"}
         </Button>
       </InputRightElement>
