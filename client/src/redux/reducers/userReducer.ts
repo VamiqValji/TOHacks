@@ -8,10 +8,11 @@ const emptyState = {
     email: "",
 };
 
-const testReducer = (state = false, action:any) => {
+const testReducer = (state = emptyState, action:any) => {
     switch (action.type) {
       case "SET_USER_DATA":
-          const { forms, userId, email, pfpUrl, password, name } = action.payload;
+        const { forms, userId, email, pfpUrl, password, name } = action.payload;
+        console.log(action.payload)
         return { forms, userId, email, pfpUrl, password, name };
       case "CLEAR_USER_DATA":
         return emptyState;

@@ -7,10 +7,14 @@ import {
     Route,
     Link
   } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { setUserData } from '../../redux/actions/userAction';
 
 interface HomeProps {}
 
 const Login: React.FC<HomeProps> = () => {
+
+    const dispatch = useDispatch();
 
     const [username, setUsername] = React.useState("");
     const [password, setPassword] = React.useState("");
@@ -22,13 +26,13 @@ const Login: React.FC<HomeProps> = () => {
     const [isLoad, setIsLoad] = React.useState(false);
 
     const meow = async () =>  {
-        console.log("d")
         try {
             const res = await axios.post("http://localhost:3001/users/login",{
                 name: username,
                 password
             })
             console.log("success", res);
+            dispatch(setUserData(res.data.data));
         } catch (e) {
             console.log("error:", e);
         }

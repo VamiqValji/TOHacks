@@ -7,10 +7,14 @@ import {
     Route,
     Link
   } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { setUserData } from '../../redux/actions/userAction';
 
 interface HomeProps {}
 
 const Home: React.FC<HomeProps> = () => {
+
+    const dispatch = useDispatch();
 
     const [username, setUsername] = React.useState("");
     const [password, setPassword] = React.useState("");
@@ -31,6 +35,7 @@ const Home: React.FC<HomeProps> = () => {
                 email
             })
             setIsLoad(false);
+            dispatch(setUserData(data.data));
         } else {
             alert("Passwords do not match!")
         }

@@ -1,6 +1,7 @@
-export const setUserData = () => {
+export const setUserData = (data: object) => {
     return {
       type: "SET_USER_DATA",
+      payload: data,
     };
 }; 
 
