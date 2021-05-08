@@ -22,16 +22,16 @@ const Login: React.FC<HomeProps> = () => {
     const [isLoad, setIsLoad] = React.useState(false);
 
     const meow = async () =>  {
-        const {data} = await axios.post("http://localhost:3000",{
-            username,
-            password
-        })
-        if(data.success) {
-            alert("oh yeah fortnite.")
-        } else {
-            alert("no more fortnite")
+        console.log("d")
+        try {
+            const res = await axios.post("http://localhost:3001/users/login",{
+                name: username,
+                password
+            })
+            console.log("success", res);
+        } catch (e) {
+            console.log("error:", e);
         }
- 
     }
 
     return (
