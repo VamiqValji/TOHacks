@@ -17,10 +17,16 @@ export interface question {
 }
 
 export interface form {
+    formId: string,
     title: string,
     description: string,
     questions: question[],
     responses: formResponse[]
+}
+
+type formId = string;
+export interface formPointer {
+    pointer: formId[]
 }
 
 export interface usersInterface {
@@ -28,5 +34,5 @@ export interface usersInterface {
     name: string,
     pfpUrl?: string,
     password: string,
-    forms: form[]
+    forms: formPointer[]
 }
