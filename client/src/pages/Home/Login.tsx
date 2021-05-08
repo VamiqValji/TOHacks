@@ -1,11 +1,20 @@
 import React from 'react';
 import { Text, Input, InputGroup, Button, InputRightElement} from "@chakra-ui/react"
 import axios from 'axios';
-import {Link} from "react-router-dom";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+  } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { setUserData } from '../../redux/actions/userAction';
 
 interface HomeProps {}
 
 const Login: React.FC<HomeProps> = () => {
+
+    const dispatch = useDispatch();
 
     const [username, setUsername] = React.useState("");
     const [password, setPassword] = React.useState("");
@@ -15,18 +24,16 @@ const Login: React.FC<HomeProps> = () => {
     const [isLoad, setIsLoad] = React.useState(false);
 
     const meow = async () =>  {
-        setIsLoad(true);
-        const {data} = await axios.post("http://localhost:3000",{
-            username,
-            password
-        })
-        if(data.success) {
-            alert("oh yeah fortnite.")
-        } else {
-            alert("no more fortnite")
+        try {
+            const res = await axios.post("http://localhost:3001/users/login",{
+                name: username,
+                password
+            })
+            console.log("success", res);
+            dispatch(setUserData(res.data.data));
+        } catch (e) {
+            console.log("error:", e);
         }
-        setIsLoad(false);
- 
     }
 
     return (

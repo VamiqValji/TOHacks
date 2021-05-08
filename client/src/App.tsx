@@ -24,6 +24,9 @@ function App() {
             <li>
               <Link to="/dashboard">Dashboard</Link>
             </li>
+            <li>
+              <Link to="/forms">Forms</Link>
+            </li>
           </ul>
         </nav>
         <Switch>
