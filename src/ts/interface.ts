@@ -33,7 +33,8 @@ export interface formPointer {
 export interface usersInterface {
     userId: string,
     name: string,
-    pfpUrl?: string,
     password: string,
+    email:string,
+    pfpUrl?: string,
     forms: formPointer[]
 }

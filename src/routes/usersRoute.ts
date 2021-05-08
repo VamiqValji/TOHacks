@@ -26,19 +26,20 @@ router.post("/viewOne", async (req, res) => {
 
 router.post("/create", async (req, res) => {
 
-    const { name, password, pfpUrl }:usersInterface = req.body;
+    const { name, password, pfpUrl, email }:usersInterface = req.body;
     
     const isDuplicate = await users.findOne({ name });
     if (isDuplicate) return res.status(400).json({success: false, message: "Account already exists."});
 
-    const valuesAreValid = name && password && pfpUrl;
-    if (!valuesAreValid) return res.status(400).json({success: false, message: "Invalid values. Required: name, password, pfpUrl"});
+    const valuesAreValid = name && password && pfpUrl && email;
+    if (!valuesAreValid) return res.status(400).json({success: false, message: "Invalid values. Required: name, password, pfpUrl, email"});
 
     let newUser:mongoose.Document = new users({
         name,
         password,
         pfpUrl,
         userId: Date.now(),
+        email,
     });
 
     await newUser.save();
