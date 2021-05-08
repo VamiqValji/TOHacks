@@ -24,26 +24,23 @@ router.post("/viewOne", async (req, res) => {
     return res.status(200).json({success: true, message: "Returning form", data: foundForm});
 });
 
-// router.post("/create", async (req, res) => {
+router.post("/create", async (req, res) => {
 
-//     const { name, password, pfpUrl }:formInterface = req.body;
+    const { description, formId, questions, responses, title }:formInterface = req.body;
     
-//     const isDuplicate = await users.findOne({ name });
-//     if (isDuplicate) return res.status(400).json({success: false, message: "Account already exists."});
+    // const isDuplicate = await forms.findOne({ formId });
+    // if (isDuplicate) return res.status(400).json({success: false, message: "Account already exists."});
 
-//     const valuesAreValid = name && password && pfpUrl;
-//     if (!valuesAreValid) return res.status(400).json({success: false, message: "Invalid values. Required: name, password, pfpUrl"});
+    const valuesAreValid = description && formId && questions && responses && title;
+    if (!valuesAreValid) return res.status(400).json({success: false, message: "Invalid values. Required: description, formId, questions, responses, title"});
 
-//     let newForm:mongoose.Document = new forms({
-//         // name,
-//         // password,
-//         // pfpUrl,
-//         // userId: Date.now(),
-//     });
+    let newForm:mongoose.Document = new forms({
+        description, formId, questions, responses, title
+    });
 
-//     await newForm.save();
+    await newForm.save();
 
-//     return res.status(201).json({success: true, message: `Created form: '${form}'.`, data: newForm});
-// });
+    return res.status(201).json({success: true, message: `Created form: '${title}'.`, data: newForm});
+});
 
 export default router;

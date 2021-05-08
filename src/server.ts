@@ -1,7 +1,8 @@
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
-import users from "./routes/usersRoute";
+import usersRoute from "./routes/usersRoute";
+import formsRoute from "./routes/formsRoute";
 
 const app: express.Application = express();
 require("dotenv").config();
@@ -9,7 +10,8 @@ require("dotenv").config();
 app.use(express.json());
 app.use(cors({}));
 
-app.use("/users", users);
+app.use("/users", usersRoute);
+app.use("/forms", formsRoute);
 
 app.get("/", (req, res) => {
   res.status(200).json({test: ""});

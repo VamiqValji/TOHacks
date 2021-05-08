@@ -35,10 +35,10 @@ router.post("/create", async (req, res) => {
     if (!valuesAreValid) return res.status(400).json({success: false, message: "Invalid values. Required: name, password, pfpUrl"});
 
     let newUser:mongoose.Document = new users({
-        // name,
-        // password,
-        // pfpUrl,
-        // userId: Date.now(),
+        name,
+        password,
+        pfpUrl,
+        userId: Date.now(),
     });
 
     await newUser.save();
