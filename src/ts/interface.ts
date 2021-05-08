@@ -26,6 +26,7 @@ export interface form {
 export interface usersInterface {
     userId: string,
     name: string,
+    pfpUrl?: string,
     password: string,
     forms: form[]
 }
