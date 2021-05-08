@@ -9,6 +9,7 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import Home from './pages/Home/Home';
 import Forms from './pages/Forms/Forms';
 import Quotes from './pages/Quotes/Quotes';
+import Login from './pages/Home/Login';
 
 function App() {
   return (
@@ -34,6 +35,9 @@ function App() {
           </Route>
           <Route path="/forms">
             <Forms />
+          </Route>
+          <Route path="/login">
+            <Login />
           </Route>
           <Route path="/">
             <Home />

@@ -10,11 +10,10 @@ import {
 
 interface HomeProps {}
 
-const Home: React.FC<HomeProps> = () => {
+const Login: React.FC<HomeProps> = () => {
 
     const [username, setUsername] = React.useState("");
     const [password, setPassword] = React.useState("");
-    const [confirmPassword, setConfirmPassword] = React.useState("");
     const [email, setEmail] = React.useState("");
 
     const [show, setShow] = React.useState(false)
@@ -23,46 +22,34 @@ const Home: React.FC<HomeProps> = () => {
     const [isLoad, setIsLoad] = React.useState(false);
 
     const meow = async () =>  {
-        if(password === confirmPassword) {
-            setIsLoad(true);
-            const {data} =  await axios.post("http://localhost:3001", {
-                username,
-                password,
-                email
-            })
-            setIsLoad(false);
+        const {data} = await axios.post("http://localhost:3000",{
+            username,
+            password
+        })
+        if(data.success) {
+            alert("oh yeah fortnite.")
         } else {
-            alert("Passwords do not match!")
+            alert("no more fortnite")
         }
-        
-        //await axios.get("localhost");
-        
+ 
     }
 
     return (
     <>
     
     <InputGroup display="grid" gridGap={4} gridAutoFlow="row dense" width={1/3} mx="auto">
-    <Text fontSize={32} mx="auto">Sign Up!</Text>
-        <Input 
-            onChange={(event)=>setEmail(event.target.value)}
-            placeholder="Email Address"
-        />
+    <Text fontSize={32} mx="auto">Log In!</Text>
         <Input 
             onChange={(event)=>setUsername(event.target.value)}
             placeholder="Username"
         />
+         <InputGroup>
         <Input 
             onChange={(event)=>setPassword(event.target.value)}
             placeholder="Password"
             type={show ? "text" : "password"}
         />
-        <InputGroup>
-        <Input 
-            onChange={(event)=>setConfirmPassword(event.target.value)}
-            placeholder="Confirm Password"
-            type={show ? "text" : "password"}
-        />
+       
         <InputRightElement width="4.5rem">
         <Button h="1.75rem" size="sm" onMouseEnter={() => setShow(true)} onMouseLeave={() => setShow(false)}>
           {show ? "Hide" : "Show"}
@@ -71,13 +58,13 @@ const Home: React.FC<HomeProps> = () => {
       </InputGroup>
         
          <Button isLoading={isLoad} colorScheme="teal" variant="solid" onClick={() => meow()}>
-             fruit
+             Log In
         </Button>
-        <Link to="login" >Already have an account? Click here to login.</Link>
+        <Link to="Dashboard" >Already have an account? Click here to login.</Link>
      
     </InputGroup>
     </>
     );
 }
 
-export default Home;
+export default Login;
