@@ -26,16 +26,16 @@ router.post("/viewOne", async (req, res) => {
 
 router.post("/create", async (req, res) => {
 
-    const { description, formId, questions, responses, title }:formInterface = req.body;
+    const { description, questions, title }:formInterface = req.body;
     
     // const isDuplicate = await forms.findOne({ formId });
     // if (isDuplicate) return res.status(400).json({success: false, message: "Account already exists."});
 
-    const valuesAreValid = description && formId && questions && responses && title;
-    if (!valuesAreValid) return res.status(400).json({success: false, message: "Invalid values. Required: description, formId, questions, responses, title"});
+    const valuesAreValid = description && questions && title;
+    if (!valuesAreValid) return res.status(400).json({success: false, message: "Invalid values. Required: description, questions, title"});
 
     let newForm:mongoose.Document = new forms({
-        description, formId, questions, responses, title
+        description, formId: Date.now().toString(), questions, title
     });
 
     await newForm.save();

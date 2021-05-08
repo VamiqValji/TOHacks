@@ -38,7 +38,7 @@ router.post("/create", async (req, res) => {
         name,
         password,
         pfpUrl,
-        userId: Date.now(),
+        userId: Date.now().toString(),
         email,
     });
 

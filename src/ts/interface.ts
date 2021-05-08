@@ -13,8 +13,7 @@ export interface formResponse {
 export interface question {
     id: string,
     question: string,
-    description: string,
-    inputField: string,
+    description?: string,
 }
 
 export interface form {
