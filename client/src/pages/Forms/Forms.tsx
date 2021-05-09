@@ -1,5 +1,5 @@
 import { Box, Text } from '@chakra-ui/layout';
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Button, Flex, Heading, HStack, Input, Skeleton } from '@chakra-ui/react';
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Button, Flex, Heading, HStack, Input, Skeleton, useClipboard } from '@chakra-ui/react';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -16,6 +16,9 @@ const Forms: React.FC<FormsProps> = () => {
     const [formsData, setFormsData] = useState<form[] | null>(null);
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [whichModalOpen, setWhichModalOpen] = useState<string>("");
+    const [copyFormUrl, setCopyFormUrl] = useState<string>("");
+
+    const { hasCopied, onCopy } = useClipboard(copyFormUrl);
 
     const userState:usersInterface = useSelector((state:any) => state.user);
 
@@ -109,7 +112,12 @@ const Forms: React.FC<FormsProps> = () => {
                             <Box>
                                 <Heading as="h3">Title: {form.title}</Heading>
                                 <Text><b>Description:</b> {form.description}</Text>
-                                <Text mb={2}><b>ID:</b> {form.formId} </Text>
+                                {/* <Text mb={2}><b>ID:</b> {form.formId} </Text> */}
+                                <Flex textAlign="center" alignItems="center">
+                                    <Text size="sm" mb={2}><b>Share this form's link with clients:</b> 
+                                        <Button onClick={() => { setCopyFormUrl(`${window.location.origin}/form/${form.formId}`); onCopy(); }} size="sm">{hasCopied ? "Copied" : "Copy"}</Button> 
+                                    </Text>
+                                </Flex>
                                 <Text>
                                     <Accordion>
                                         <AccordionItem>
@@ -119,7 +127,7 @@ const Forms: React.FC<FormsProps> = () => {
                                                 </Box>
                                                 <AccordionIcon />
                                             </AccordionButton>
-                                            <AccordionPanel pb={4}>
+                                            <AccordionPanel pb={4} maxHeight={"20vw"} overflowY="auto">
                                                 {renderQuestions(form.questions)}
                                             </AccordionPanel>
                                         </AccordionItem>
@@ -132,7 +140,7 @@ const Forms: React.FC<FormsProps> = () => {
                                                 <AccordionIcon />
                                             </AccordionButton>
                                             </h2>
-                                            <AccordionPanel pb={4}>
+                                            <AccordionPanel pb={4} maxHeight={"20vw"} overflowY="auto">
                                                 {renderFormResponses(form.responses)}
                                             </AccordionPanel>
                                         </AccordionItem>

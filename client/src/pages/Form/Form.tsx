@@ -108,7 +108,7 @@ const Form: React.FC<FormProps> = () => {
 
     return (
     <>
-        <Box className="container" m={"0 auto"} bg={"blackAlpha.500"} p={4} borderRadius={4} mt={4}>
+        <Box className="container" m={"0 auto"} bg={"blackAlpha.500"} p={4} borderRadius={4} mt={4} mb='4'>
             <Heading size={"lg"}>{/*<b>Title:</b> */}{form.title}</Heading>
             <Text size={"md"}>{/*<b>Description:</b> */}{form.description}</Text>
             <form onSubmit={(e) => handleFormSubmit(e)} ref={formContainerRef}>
