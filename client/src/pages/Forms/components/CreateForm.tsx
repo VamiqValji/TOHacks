@@ -55,6 +55,7 @@ const CreateForm: React.FC<CreateFormProps> = () => {
     
             console.log(data);
         } catch (e) {
+            console.log(e);
             toast({
                 title: "Form creation error.",
                 description: "Error in creating your form for you.",

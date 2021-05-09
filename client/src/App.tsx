@@ -11,6 +11,7 @@ import Forms from './pages/Forms/Forms';
 import Quotes from './pages/Quotes/Quotes';
 import Login from './pages/Home/Login';
 import NavBar from './pages/NavBar/NavBar';
+import Form from './pages/Form/Form';
 
 const Links = ['Dashboard', 'Projects', 'Team'];
 
@@ -20,8 +21,6 @@ function App() {
       <Router>
       <div>
         <NavBar />
-
-       
         <Switch>
           <Route path="/dashboard">
             <Dashboard />
@@ -31,6 +30,9 @@ function App() {
           </Route>
           <Route path="/forms">
             <Forms />
+          </Route>
+          <Route path="/form/:id">
+            <Form />
           </Route>
           <Route path="/login">
             <Login />
