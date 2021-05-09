@@ -81,35 +81,35 @@ const CreateForm: React.FC<CreateFormProps> = () => {
                         case 1:
                             console.log('case1')
                             if (value === "QUESTION") return "What is your full name?";
-                            if (value === "DESCRIPTION") return "";
+                            if (value === "DESCRIPTION") return "Example: Jennifer Lee";
                             break;
                         case 2:
                             if (value === "QUESTION") return "What is your home address?";
-                            if (value === "DESCRIPTION") return "";
+                            if (value === "DESCRIPTION") return "Example: 6712 Potato Street, Mississauga, Ontario";
                             break;
                         case 3:
                             if (value === "QUESTION") return "What is your phone number?";
-                            if (value === "DESCRIPTION") return "";
+                            if (value === "DESCRIPTION") return "Example: 289-0123-9054";
                             break;
                         case 4:
                             if (value === "QUESTION") return "What is the model of the vehicle?";
-                            if (value === "DESCRIPTION") return "";
+                            if (value === "DESCRIPTION") return "Example: Toyota Camery 2016";
                             break;
                         case 5:
                             if (value === "QUESTION") return "Please provide a brief description of what occured.";
-                            if (value === "DESCRIPTION") return "";
+                            if (value === "DESCRIPTION") return "Example: The driver next to me skidded in the ice when trying to brake, and rear-ended my car.";
                             break;
                         case 6:
                             if (value === "QUESTION") return "What was the location of the accident?";
-                            if (value === "DESCRIPTION") return "";
+                            if (value === "DESCRIPTION") return "Example: Outside of my child's school, on Example street.";
                             break;
                         case 7:
                             if (value === "QUESTION") return "Who's fault was it?";
-                            if (value === "DESCRIPTION") return "";
+                            if (value === "DESCRIPTION") return "Example: The other driver, I wasn't in motion before the collision.";
                             break;
                         case 7:
                             if (value === "QUESTION") return "Was anyone injured?";
-                            if (value === "DESCRIPTION") return "";
+                            if (value === "DESCRIPTION") return "Example: Fortunately, no.";
                             break;
                         default:
                             return "";
