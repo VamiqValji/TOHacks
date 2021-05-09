@@ -1,5 +1,5 @@
 import { Box, Text } from '@chakra-ui/layout';
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Button, Flex, Heading, HStack, Skeleton } from '@chakra-ui/react';
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Button, Flex, Heading, HStack, Input, Skeleton } from '@chakra-ui/react';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -144,20 +144,25 @@ const Forms: React.FC<FormsProps> = () => {
         }
     };
 
-    const renderFormsResponses = () => {
-        if (formsData === null) {
-            return (
-                // <ModalIndex>
-                    <HStack>
-                        <Skeleton height="20px"></Skeleton>
-                        <Skeleton height="20px"></Skeleton>
-                        <Skeleton height="20px"></Skeleton>
-                    </HStack>
-                // </ModalIndex>
-            );
-        }
+    const renderCreateForm = () => {
+
+        const handleCreateFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+            e.preventDefault();
+
+        };
+
+        return (
+            <>
+                <Box mt={4} bg={"blackAlpha.500"} p={4} borderRadius={4}>
+                    <form onSubmit={(e) => handleCreateFormSubmit(e)}>
+                        <Input mb="2" variant="filled" placeholder="Title" />
+                        <Input mb="2" variant="filled" placeholder="Description" />
+                        <Input mb="2" variant="filled" placeholder="userId" />
+                    </form>
+                </Box>
+            </>
+        );
     };
- 
  
     return (
     <>
@@ -167,8 +172,8 @@ const Forms: React.FC<FormsProps> = () => {
                 {renderFormsData()}
             </Box>
             <Box className="rightContainer" width={"45%"} ml={4}>
-                <Heading>Your Forms' Responses</Heading>
-                {renderFormsResponses()}
+                <Heading>Create A Form</Heading>
+                {renderCreateForm()}
             </Box>
         </Flex>
     </>);
