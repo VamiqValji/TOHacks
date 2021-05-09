@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Heading, HStack, Input, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper } from '@chakra-ui/react';
+import { Box, Button, Flex, Heading, HStack, Input, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper } from '@chakra-ui/react';
 import { question, usersInterface } from "../../../ts/interface/userInterface";
 import axios from 'axios';
 import { useSelector } from 'react-redux';
@@ -10,6 +10,7 @@ const CreateForm: React.FC<CreateFormProps> = () => {
 
     // const [questions, setQuestions] = useState<question[] | null>([]);
     const [questionsLength, setQuestionsLength] = useState<number>(3);
+    const [buttonIsLoading, setButtonIsLoading] = useState<boolean>(false);
     
     const questionsContainer = React.useRef<HTMLDivElement | null>(null);
     const titleInputRef = React.useRef<HTMLInputElement | null>(null);
@@ -20,6 +21,7 @@ const CreateForm: React.FC<CreateFormProps> = () => {
     const handleCreateFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         
+        setButtonIsLoading(true);
         let tempQuestionChildrenNodes:NodeListOf<ChildNode>[] = [];
         questionsContainer.current?.childNodes.forEach((node) => {tempQuestionChildrenNodes.push(node.childNodes);});
         let nextTempQuestionChildrenNodes:question[] = tempQuestionChildrenNodes.map((questionDiv:any):question => {
@@ -38,6 +40,7 @@ const CreateForm: React.FC<CreateFormProps> = () => {
             questions: nextTempQuestionChildrenNodes,
         });
 
+        setButtonIsLoading(false);
         console.log(data);
     };
 
@@ -90,7 +93,11 @@ const CreateForm: React.FC<CreateFormProps> = () => {
                     <Box p={4} borderRadius={4} mt={2} bg={"blackAlpha.500"} className="questionsContainer" ref={questionsContainer}>
                         {renderQuestions()}
                     </Box>
-                    <Input cursor="pointer" mt="4" type="submit" variant="outline" placeholder="userId" colorScheme="brand" />
+                    <Flex justifyContent="center">
+                        <Button size="lg" isLoading={buttonIsLoading} loadingText={"Submitting"} value={"Submit Form"} cursor="pointer" mt="4" type="submit" variant="solid" colorScheme="brand">
+                            Submit Form
+                        </Button>
+                    </Flex>
                 </form>
             </Box>
         </>
