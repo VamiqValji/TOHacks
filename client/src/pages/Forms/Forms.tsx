@@ -7,6 +7,7 @@ import FullModal from '../../components/fullModal';
 // import ModalIndex from '../../components/ModalIndex';
 import PleaseLogin from '../../components/pleaseLogin/PleaseLogin';
 import { usersInterface, form, question, response, formResponse } from "../../ts/interface/userInterface";
+import CreateForm from './components/CreateForm';
 
 interface FormsProps {}
 
@@ -144,26 +145,6 @@ const Forms: React.FC<FormsProps> = () => {
         }
     };
 
-    const renderCreateForm = () => {
-
-        const handleCreateFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-            e.preventDefault();
-
-        };
-
-        return (
-            <>
-                <Box mt={4} bg={"blackAlpha.500"} p={4} borderRadius={4}>
-                    <form onSubmit={(e) => handleCreateFormSubmit(e)}>
-                        <Input mb="2" variant="filled" placeholder="Title" />
-                        <Input mb="2" variant="filled" placeholder="Description" />
-                        <Input mb="2" variant="filled" placeholder="userId" />
-                    </form>
-                </Box>
-            </>
-        );
-    };
- 
     return (
     <>
         <Flex w={"50vw"} m={"0 auto"} mt={4} >
@@ -173,7 +154,7 @@ const Forms: React.FC<FormsProps> = () => {
             </Box>
             <Box className="rightContainer" width={"45%"} ml={4}>
                 <Heading>Create A Form</Heading>
-                {renderCreateForm()}
+                <CreateForm />
             </Box>
         </Flex>
     </>);
