@@ -30,14 +30,14 @@ function App() {
           <Route path="/forms">
             <Forms />
           </Route>
-          <Route path="/">
-            <Home />
-          </Route>
           <Route path="/signup">
             <Signup />
           </Route>
           <Route path="/login">
             <Login />
+          </Route>
+          <Route path="/">
+            <Home />
           </Route>
         </Switch>
       </div>
