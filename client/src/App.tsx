@@ -10,12 +10,17 @@ import Home from './pages/Home/Home';
 import Forms from './pages/Forms/Forms';
 import Quotes from './pages/Quotes/Quotes';
 import Login from './pages/Home/Login';
+import NavBar from './pages/NavBar/NavBar';
+
+const Links = ['Dashboard', 'Projects', 'Team'];
 
 function App() {
   return (
     <div className="App">
       <Router>
       <div>
+        <NavBar />
+
         <nav>
           <ul>
             <li>
