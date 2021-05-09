@@ -15,6 +15,8 @@ const Forms: React.FC<FormsProps> = () => {
 
     const [formsData, setFormsData] = useState<form[] | null>(null);
     const [modalOpen, setModalOpen] = useState<boolean>(false);
+    const [whichModalOpen, setWhichModalOpen] = useState<string>("");
+
     const userState:usersInterface = useSelector((state:any) => state.user);
 
     const fetchForms = async () => {
@@ -101,8 +103,8 @@ const Forms: React.FC<FormsProps> = () => {
                 <Box mt={4} key={idx} bg={"blackAlpha.500"} p={4} borderRadius={4} >
                     <Heading size="lg">{form.title}</Heading>
                     <Text className="grey">{form.description}</Text>
-                    <Button mt={2} color={"grey"} onClick={invertModalState} colorScheme="brand" style={{color:"black"}}>More details</Button> 
-                    <FullModal open={modalOpen} invertModalState={invertModalState}>
+                    <Button mt={2} color={"grey"} onClick={() => { invertModalState(); setWhichModalOpen(form.formId); }} colorScheme="brand" style={{color:"black"}}>More details</Button> 
+                    <FullModal open={form.formId === whichModalOpen && modalOpen ? true : false} invertModalState={invertModalState}>
                         <Flex>
                             <Box>
                                 <Heading as="h3">Title: {form.title}</Heading>
