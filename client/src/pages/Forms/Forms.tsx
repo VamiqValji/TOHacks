@@ -99,7 +99,7 @@ const Forms: React.FC<FormsProps> = () => {
             return formsData.map((form, idx:number) => {
                 return (
                 <Box mt={4} key={idx} bg={"blackAlpha.500"} p={4} borderRadius={4} >
-                    <Heading>{form.title}</Heading>
+                    <Heading size="lg">{form.title}</Heading>
                     <Text className="grey">{form.description}</Text>
                     <Button mt={2} color={"grey"} onClick={invertModalState} colorScheme="brand" style={{color:"black"}}>More details</Button> 
                     <FullModal open={modalOpen} invertModalState={invertModalState}>
@@ -147,7 +147,7 @@ const Forms: React.FC<FormsProps> = () => {
 
     return (
     <>
-        <Flex w={"50vw"} m={"0 auto"} mt={4} >
+        <Flex w={"50vw"} m={"0 auto"} mt={8} >
             <Box className="leftContainer" width={"45%"}>
                 <Heading>Your Forms</Heading>
                 {renderFormsData()}
