@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Heading, Input, Spinner, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, Heading, Input, Spinner, Text, useToast } from '@chakra-ui/react';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
@@ -15,6 +15,8 @@ const Form: React.FC<FormProps> = () => {
     const formContainerRef = React.useRef<HTMLFormElement | null>(null);
     const nameInputRef = React.useRef<HTMLInputElement | null>(null);
     const emailInputRef = React.useRef<HTMLInputElement | null>(null);
+
+    const toast = useToast();
 
     const { id }:{id: string} = useParams();
 
@@ -91,6 +93,14 @@ const Form: React.FC<FormProps> = () => {
             const { data } = await axios.post("http://localhost:3001/forms/respond", packagedData);
 
             console.log("finalResponse:", data);
+
+            toast({
+                title: "Successful form response!",
+                description: "We've sent your form for you.",
+                status: "success",
+                duration: 5000,
+                isClosable: true,
+            });
 
             setButtonIsLoading(false);
         } catch(e) { console.log(e); }
