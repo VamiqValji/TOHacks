@@ -2,71 +2,86 @@ import React from 'react';
 import { Text, Input, InputGroup, Button, InputRightElement} from "@chakra-ui/react"
 import axios from 'axios';
 import {
-    // BrowserRouter as Router,
-    // Switch,
-    // Route,
     Link
   } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { setUserData } from '../../redux/actions/userAction';
 
-interface HomeProps {}
+interface AccountProps {}
 
-const Login: React.FC<HomeProps> = () => {
+const Signup: React.FC<AccountProps> = () => {
 
     const dispatch = useDispatch();
 
     const [username, setUsername] = React.useState("");
     const [password, setPassword] = React.useState("");
+    const [confirmPassword, setConfirmPassword] = React.useState("");
+    const [email, setEmail] = React.useState("");
 
     const [show, setShow] = React.useState(false)
     
     const [isLoad, setIsLoad] = React.useState(false);
 
     const meow = async () =>  {
-        try {
-            const res = await axios.post("http://localhost:3001/users/login",{
-                name: username,
-                password
+        if(!password) return;
+        if(password === confirmPassword) {
+            setIsLoad(true);
+            const {data} =  await axios.post("http://localhost:3001", {
+                username,
+                password,
+                email
             })
-            console.log("success", res);
-            dispatch(setUserData(res.data.data));
-        } catch (e) {
-            console.log("error:", e);
+            setIsLoad(false);
+            dispatch(setUserData(data.data));
+        } else {
+            alert("Passwords do not match!")
         }
+        setIsLoad(false);
+        
+        //await axios.get("localhost");
+        
     }
+
 
     return (
     <>
     
     <InputGroup display="grid" gridGap={4} gridAutoFlow="row dense" width={1/3} mx="auto">
-    <Text fontSize={32} mx="auto">Log In!</Text>
+    <Text fontSize={32} mx="auto">Sign Up!</Text>
+        <Input 
+            onChange={(event)=>setEmail(event.target.value)}
+            placeholder="Email Address"
+        />
         <Input 
             onChange={(event)=>setUsername(event.target.value)}
             placeholder="Username"
         />
-         <InputGroup>
         <Input 
             onChange={(event)=>setPassword(event.target.value)}
             placeholder="Password"
             type={show ? "text" : "password"}
         />
-       
+        <InputGroup>
+        <Input 
+            onChange={(event)=>setConfirmPassword(event.target.value)}
+            placeholder="Confirm Password"
+            type={show ? "text" : "password"}
+        />
         <InputRightElement width="4.5rem">
-        <Button h="1.75rem" size="sm" onClick={() => setShow(!show)} >
+        <Button h="1.75rem" size="sm" onClick={() => setShow(!show)}>
           {show ? "Hide" : "Show"}
         </Button>
       </InputRightElement>
       </InputGroup>
         
          <Button isLoading={isLoad} colorScheme="teal" variant="solid" onClick={() => meow()}>
-             Log In
+             fruit
         </Button>
-        <Link to="Home" >Don't Have An Account? Click here to sign up.</Link>
+        <Link to="login" >Already have an account? Click here to login.</Link>
      
     </InputGroup>
     </>
     );
 }
 
-export default Login;
+export default Signup;

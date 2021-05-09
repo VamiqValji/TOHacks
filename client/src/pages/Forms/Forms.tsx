@@ -30,9 +30,9 @@ const Forms: React.FC<FormsProps> = () => {
         fetchForms();
     }, []);
 
-    // if (userState.userId === "") {
-    //     return <PleaseLogin />;
-    // }
+    if (userState.userId === "") {
+        return <PleaseLogin />;
+    }
 
     const invertModalState = () => {
         setModalOpen(!modalOpen);

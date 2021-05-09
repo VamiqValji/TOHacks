@@ -1,85 +1,25 @@
 import React from 'react';
-import { Text, Input, InputGroup, Button, InputRightElement} from "@chakra-ui/react"
-import axios from 'axios';
-import {
-    Link
-  } from "react-router-dom";
-import { useDispatch } from 'react-redux';
-import { setUserData } from '../../redux/actions/userAction';
+import {Link} from 'react-router-dom'
+import img from '../../imgs/pic.svg'
+import { Heading } from "@chakra-ui/react"
+import { Button } from "@chakra-ui/react"
+import { ArrowForwardIcon } from '@chakra-ui/icons';
 
 interface HomeProps {}
 
 const Home: React.FC<HomeProps> = () => {
 
-    const dispatch = useDispatch();
-
-    const [username, setUsername] = React.useState("");
-    const [password, setPassword] = React.useState("");
-    const [confirmPassword, setConfirmPassword] = React.useState("");
-    const [email, setEmail] = React.useState("");
-
-    const [show, setShow] = React.useState(false)
-    
-    const [isLoad, setIsLoad] = React.useState(false);
-
-    const meow = async () =>  {
-        if(!password) return;
-        if(password === confirmPassword) {
-            setIsLoad(true);
-            const {data} =  await axios.post("http://localhost:3001", {
-                username,
-                password,
-                email
-            })
-            setIsLoad(false);
-            dispatch(setUserData(data.data));
-        } else {
-            alert("Passwords do not match!")
-        }
-        setIsLoad(false);
-        
-        //await axios.get("localhost");
-        
-    }
-
-
     return (
     <>
-    
-    <InputGroup display="grid" gridGap={4} gridAutoFlow="row dense" width={1/3} mx="auto">
-    <Text fontSize={32} mx="auto">Sign Up!</Text>
-        <Input 
-            onChange={(event)=>setEmail(event.target.value)}
-            placeholder="Email Address"
-        />
-        <Input 
-            onChange={(event)=>setUsername(event.target.value)}
-            placeholder="Username"
-        />
-        <Input 
-            onChange={(event)=>setPassword(event.target.value)}
-            placeholder="Password"
-            type={show ? "text" : "password"}
-        />
-        <InputGroup>
-        <Input 
-            onChange={(event)=>setConfirmPassword(event.target.value)}
-            placeholder="Confirm Password"
-            type={show ? "text" : "password"}
-        />
-        <InputRightElement width="4.5rem">
-        <Button h="1.75rem" size="sm" onClick={() => setShow(!show)}>
-          {show ? "Hide" : "Show"}
+        <Heading className= "container" mt={"20px"} textAlign = {"center"} color={"#0987A0"}>Formae. </Heading>
+        <Heading as="h2" className= "container" textAlign = {"center"}> Saving you money one form at a time.</Heading>
+        <img className= "container" src={img} alt={"img"}></img>
+        <Link to= "signup" >
+        <Button mt={"25"} color="#00A3C4" size="lg" className= "botButton" rightIcon={<ArrowForwardIcon />}>
+            Click Here To Get Started!
         </Button>
-      </InputRightElement>
-      </InputGroup>
-        
-         <Button isLoading={isLoad} colorScheme="teal" variant="solid" onClick={() => meow()}>
-             fruit
-        </Button>
-        <Link to="login" >Already have an account? Click here to login.</Link>
-     
-    </InputGroup>
+        </Link>
+
     </>
     );
 }
