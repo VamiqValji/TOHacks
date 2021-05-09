@@ -9,6 +9,7 @@ import Forms from './pages/Forms/Forms';
 import Quotes from './pages/Quotes/Quotes';
 import Login from './pages/Account/Login';
 import NavBar from './pages/NavBar/NavBar';
+import Form from './pages/Form/Form';
 import Signup from './pages/Account/Signup';
 import Home from './pages/Home/Home';
 
@@ -21,14 +22,15 @@ function App() {
       <Router>
       <div>
         <NavBar />
-
-       
         <Switch>
           <Route path="/quotes">
             <Quotes />
           </Route>
           <Route path="/forms">
             <Forms />
+          </Route>
+          <Route path="/form/:id">
+            <Form />
           </Route>
           <Route path="/signup">
             <Signup />

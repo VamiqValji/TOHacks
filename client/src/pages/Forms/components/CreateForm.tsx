@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Button, Flex, Heading, HStack, Input, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper } from '@chakra-ui/react';
+import { Box, Button, Flex, Heading, HStack, Input, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, useToast } from '@chakra-ui/react';
 import { question, usersInterface } from "../../../ts/interface/userInterface";
 import axios from 'axios';
 import { useSelector } from 'react-redux';
@@ -7,6 +7,8 @@ import { useSelector } from 'react-redux';
 interface CreateFormProps {}
 
 const CreateForm: React.FC<CreateFormProps> = () => {
+
+    const toast = useToast();
 
     // const [questions, setQuestions] = useState<question[] | null>([]);
     const [questionsLength, setQuestionsLength] = useState<number>(3);
@@ -21,27 +23,48 @@ const CreateForm: React.FC<CreateFormProps> = () => {
     const handleCreateFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         
-        setButtonIsLoading(true);
-        let tempQuestionChildrenNodes:NodeListOf<ChildNode>[] = [];
-        questionsContainer.current?.childNodes.forEach((node) => {tempQuestionChildrenNodes.push(node.childNodes);});
-        let nextTempQuestionChildrenNodes:question[] = tempQuestionChildrenNodes.map((questionDiv:any):question => {
-            return ({
-                question: questionDiv[0].value,
-                description: questionDiv[1].value,
-                id: questionDiv[2].value,
+        try {
+            setButtonIsLoading(true);
+            let tempQuestionChildrenNodes:NodeListOf<ChildNode>[] = [];
+            questionsContainer.current?.childNodes.forEach((node) => {tempQuestionChildrenNodes.push(node.childNodes);});
+            let nextTempQuestionChildrenNodes:question[] = tempQuestionChildrenNodes.map((questionDiv:any):question => {
+                return ({
+                    question: questionDiv[0].value,
+                    description: questionDiv[1].value,
+                    id: questionDiv[2].value,
+                });
             });
-        });
-        // setQuestions(nextTempQuestionChildrenNodes);
+            // setQuestions(nextTempQuestionChildrenNodes);
+    
+            const { data } = await axios.post("http://localhost:3001/forms/create", {
+                title: titleInputRef.current?.value,
+                description: descriptionInputRef.current?.value,
+                userId: userState.userId,
+                questions: nextTempQuestionChildrenNodes,
+            });
+    
+            setButtonIsLoading(false);
+    
+            toast({
+                title: "Form created.",
+                description: "We've created your form for you.",
+                status: "success",
+                duration: 5000,
+                isClosable: true,
+            });
+    
+            console.log(data);
+        } catch (e) {
+            console.log(e);
+            toast({
+                title: "Form creation error.",
+                description: "Error in creating your form for you.",
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+            });
+        }
 
-        const { data } = await axios.post("http://localhost:3001/forms/create", {
-            title: titleInputRef.current?.value,
-            description: descriptionInputRef.current?.value,
-            userId: userState.userId,
-            questions: nextTempQuestionChildrenNodes,
-        });
-
-        setButtonIsLoading(false);
-        console.log(data);
     };
 
     const renderQuestions = () => {
