@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Box, Flex, Input, InputGroup, Button, InputRightElement} from "@chakra-ui/react"
+import { Text, Input, InputGroup, Button, InputRightElement} from "@chakra-ui/react"
 import axios from 'axios';
 import {
     BrowserRouter as Router,
@@ -18,10 +18,8 @@ const Login: React.FC<HomeProps> = () => {
 
     const [username, setUsername] = React.useState("");
     const [password, setPassword] = React.useState("");
-    const [email, setEmail] = React.useState("");
 
     const [show, setShow] = React.useState(false)
-    const handleClick = () => setShow(!show)
     
     const [isLoad, setIsLoad] = React.useState(false);
 
@@ -55,7 +53,7 @@ const Login: React.FC<HomeProps> = () => {
         />
        
         <InputRightElement width="4.5rem">
-        <Button h="1.75rem" size="sm" onMouseEnter={() => setShow(true)} onMouseLeave={() => setShow(false)}>
+        <Button h="1.75rem" size="sm" onClick={() => setShow(!show)} >
           {show ? "Hide" : "Show"}
         </Button>
       </InputRightElement>
