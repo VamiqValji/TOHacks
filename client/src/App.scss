@@ -45,7 +45,6 @@
 .pop button {
   font-size: 1.2em;
   margin-top: 0.6rem;
-  color: black;
   padding: 1rem;
   border-radius: 1rem;
   border: none;
@@ -57,11 +56,6 @@
 }
 .pop button a {
   text-decoration: none;
-  color: black;
-}
-.pop button:hover {
-  /* color: rgba(0, 0, 0, 0.8); */
-  background: rgba(255, 255, 255, 0.8);
 }
 
 .navContainer {

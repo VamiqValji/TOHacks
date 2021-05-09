@@ -12,11 +12,11 @@ const FullModal: React.FC<FullModalProps> = ({open, invertModalState, children})
             <>
                 <Flex flexDirection={"column"} justifyContent="center">
                     <div className="popBG">
-                        <div className="popContainer">
+                        <div className="popContainer" style={{overflowY:"auto"}}>
                             <div className="pop">
                                 {children}
                                 {/* <Flex justifyContent="center" as="p" mt={4} color={"grey"}>Click out of the box to exit modal.</Flex>  */}
-                                <Button mt={4} colorScheme="brand" onClick={invertModalState}>Back</Button>
+                                <Button mt={6} colorScheme="brand" onClick={invertModalState}>Back</Button>
                             </div>
                         </div>
                     </div>

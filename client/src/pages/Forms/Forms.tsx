@@ -1,12 +1,12 @@
 import { Box, Text } from '@chakra-ui/layout';
-import { Button, Flex, Heading, HStack, Skeleton } from '@chakra-ui/react';
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Button, Flex, Heading, HStack, Skeleton } from '@chakra-ui/react';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import FullModal from '../../components/fullModal';
 // import ModalIndex from '../../components/ModalIndex';
 import PleaseLogin from '../../components/pleaseLogin/PleaseLogin';
-import { usersInterface, form, question } from "../../ts/interface/userInterface";
+import { usersInterface, form, question, response, formResponse } from "../../ts/interface/userInterface";
 
 interface FormsProps {}
 
@@ -69,6 +69,32 @@ const Forms: React.FC<FormsProps> = () => {
                 });
             };
 
+            const renderFormResponses = (formResponses: formResponse[]) => {
+
+                const renderResponses = (responses: response[]) => {
+                    return responses.map((response, idx:number) => {
+                        return (<>
+                        <Box as="p" color={"lightgrey"} bg={"whiteAlpha.50"} borderRadius={4} p={4} mt={2} key={idx}>
+                            <Text ml="4" as="li">{response.question}</Text>
+                            <Text ml="4" as="li" color="grey">{response.response}</Text>
+                        </Box>
+                        </>);
+                    });
+                };
+                
+                return formResponses.map((formResponse, idx:number) => {
+                    return (<>
+                        <Box as="p" color={"lightgrey"} bg={"whiteAlpha.50"} borderRadius={4} p={4} mt={2} key={idx}>
+                            <Text><b>User's Name:</b> {formResponse.name}</Text>
+                            <Text color="lightgrey"><b>User's Email:</b> {formResponse.email}</Text>
+                            <Text color="lightgrey"><b>Date Of Form Submission:</b> {new Date(formResponse.date).toLocaleString()}</Text>
+                            {renderResponses(formResponse.questionsAndResponses)}
+                        </Box>
+                    </>);
+                });
+
+            };
+
             return formsData.map((form, idx:number) => {
                 return (
                 <Box mt={4} key={idx} bg={"blackAlpha.500"} p={4} borderRadius={4} >
@@ -80,8 +106,36 @@ const Forms: React.FC<FormsProps> = () => {
                             <Box>
                                 <Heading as="h3">Title: {form.title}</Heading>
                                 <Text><b>Description:</b> {form.description}</Text>
-                                <Text><b>ID:</b> {form.formId} </Text>
-                                <Text><b>Questions:</b> <br /> {renderQuestions(form.questions)}</Text>
+                                <Text mb={2}><b>ID:</b> {form.formId} </Text>
+                                <Text>
+                                    <Accordion>
+                                        <AccordionItem>
+                                            <AccordionButton>
+                                                <Box textAlign="left">
+                                                Questions
+                                                </Box>
+                                                <AccordionIcon />
+                                            </AccordionButton>
+                                            <AccordionPanel pb={4}>
+                                                {renderQuestions(form.questions)}
+                                            </AccordionPanel>
+                                        </AccordionItem>
+                                        <AccordionItem>
+                                            <h2>
+                                            <AccordionButton>
+                                                <Box textAlign="left">
+                                                Responses
+                                                </Box>
+                                                <AccordionIcon />
+                                            </AccordionButton>
+                                            </h2>
+                                            <AccordionPanel pb={4}>
+                                                {renderFormResponses(form.responses)}
+                                            </AccordionPanel>
+                                        </AccordionItem>
+                                    </Accordion>
+                                    
+                                </Text>
                             </Box>
                         </Flex>
                     </FullModal>
