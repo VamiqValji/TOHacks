@@ -5,7 +5,6 @@ import {
   Flex,
 } from '@chakra-ui/react';
 import { Link } from "react-router-dom";
-import {HamburgerIcon,EditIcon} from '@chakra-ui/icons';
 
 interface NavBarProps {}
 
