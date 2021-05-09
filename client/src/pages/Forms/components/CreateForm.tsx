@@ -110,8 +110,8 @@ const CreateForm: React.FC<CreateFormProps> = () => {
         <>
             <Box mt={4} bg={"blackAlpha.500"} p={4} borderRadius={4}>
                 <form onSubmit={(e) => handleCreateFormSubmit(e)} style={{maxHeight:"70vh", overflowY:"auto"}}>
-                    <Input mb="2" type="text" variant="filled" placeholder="Title" ref={titleInputRef} />
-                    <Input mb="2" type="text" variant="filled" placeholder="Description" ref={descriptionInputRef} />
+                    <Input mb="2" type="text" variant="filled" placeholder="Title" ref={titleInputRef} required/>
+                    <Input mb="2" type="text" variant="filled" placeholder="Description" ref={descriptionInputRef} required/>
                     {renderNumberInput()}
                     <Box p={4} borderRadius={4} mt={2} bg={"blackAlpha.500"} className="questionsContainer" ref={questionsContainer}>
                         {renderQuestions()}

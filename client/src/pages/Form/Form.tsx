@@ -3,7 +3,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import MiddleOfScreenText from '../../components/MiddleOfScreenText';
-import { form, question } from '../../ts/interface/userInterface';
+import { form, formResponse, question, response } from '../../ts/interface/userInterface';
 
 interface FormProps {}
 
@@ -11,6 +11,10 @@ const Form: React.FC<FormProps> = () => {
 
     const [form, setForm] = useState<form | null>(null);
     const [buttonIsLoading, setButtonIsLoading] = useState<boolean>(false);
+
+    const formContainerRef = React.useRef<HTMLFormElement | null>(null);
+    const nameInputRef = React.useRef<HTMLInputElement | null>(null);
+    const emailInputRef = React.useRef<HTMLInputElement | null>(null);
 
     const { id }:{id: string} = useParams();
 
@@ -39,10 +43,10 @@ const Form: React.FC<FormProps> = () => {
     };
 
     const renderQuestions = () => {
-        return form.questions.map((question) => {
+        return form.questions.map((question, idx:number) => {
             return (
                 <>
-                    <Box className="form_question" bg={"blackAlpha.500"} p={4} borderRadius={4} mt={4}>
+                    <Box key={idx} className="form_question" bg={"blackAlpha.500"} p={4} borderRadius={4} mt={2}>
                         <Text>{question.question}</Text>
                         <Input mt="2" mb="2" type="text" variant="filled" placeholder={question.description} required />
                         {/* <Input mb="2" type="text" value={id} style={{display:"none"}} required /> */}
@@ -54,9 +58,42 @@ const Form: React.FC<FormProps> = () => {
 
     const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setButtonIsLoading(true);
-        // api calls
-        setButtonIsLoading(false);
+        try {
+            setButtonIsLoading(true);
+
+            let temp:ChildNode[] = []; // holds classname divs of "form_question" class
+
+            formContainerRef.current?.childNodes.forEach((node:any) => {
+                const isFormQuestion = node.className.includes("form_question");
+                if (isFormQuestion) temp.push(node);
+            });
+
+            console.log("TEMP", temp)
+            let listData:response[] = temp.map((questionDiv:any):response => {
+                console.log("questionDiv", questionDiv)
+                return ({
+                    question: questionDiv.childNodes[0].innerHTML,
+                    response: questionDiv.childNodes[1].value,
+                });
+            });
+
+            console.log("listDATA", listData);
+
+            const packagedData/*:formResponse*/ = {
+                name: nameInputRef.current!.value,
+                email: emailInputRef.current!.value,
+                questionsAndResponses: listData,
+                formId: id,
+            };
+
+            console.log("PACKAGED DATA", packagedData)
+
+            const { data } = await axios.post("http://localhost:3001/forms/respond", packagedData);
+
+            console.log("finalResponse:", data);
+
+            setButtonIsLoading(false);
+        } catch(e) { console.log(e); }
     };
 
     return (
@@ -64,7 +101,9 @@ const Form: React.FC<FormProps> = () => {
         <Box className="container" m={"0 auto"} bg={"blackAlpha.500"} p={4} borderRadius={4} mt={4}>
             <Heading size={"lg"}>{/*<b>Title:</b> */}{form.title}</Heading>
             <Text size={"md"}>{/*<b>Description:</b> */}{form.description}</Text>
-            <form onSubmit={(e) => handleFormSubmit(e)}>
+            <form onSubmit={(e) => handleFormSubmit(e)} ref={formContainerRef}>
+                <Input mt="4" mb="2" type="text" variant="filled" placeholder="Your name..." ref={nameInputRef} required/>
+                <Input mt="2" mb="2" type="text" variant="filled" placeholder="Your email..." ref={emailInputRef} required/>
                 {renderQuestions()}
                 <Flex justifyContent="center">
                     <Button size="lg" isLoading={buttonIsLoading} loadingText={"Submitting"} value={"Submit Form"} cursor="pointer" mt="4" type="submit" variant="solid" colorScheme="brand">
