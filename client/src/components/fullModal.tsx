@@ -16,7 +16,7 @@ const FullModal: React.FC<FullModalProps> = ({open, invertModalState, children})
                         {/* <Button mt={4} colorScheme="brand" onClick={invertModalState}>Okay</Button> */}
                             <div className="pop">
                                 {children}
-                                <Box as="p" color={"grey"}>Click out of the box to exit modal.</Box> 
+                                <Flex justifyContent="center" as="p" mt={4} color={"grey"}>Click out of the box to exit modal.</Flex> 
                             </div>
                         </div>
                     </div>
