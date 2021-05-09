@@ -20,6 +20,8 @@ function App() {
       <Router>
       <div>
         <NavBar />
+
+       
         <Switch>
           <Route path="/dashboard">
             <Dashboard />
@@ -32,6 +34,9 @@ function App() {
           </Route>
           <Route path="/login">
             <Login />
+          </Route>
+          <Route path="/quotes">
+            <Quotes />
           </Route>
           <Route path="/">
             <Home />

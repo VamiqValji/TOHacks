@@ -62,7 +62,7 @@ const Login: React.FC<HomeProps> = () => {
          <Button isLoading={isLoad} colorScheme="teal" variant="solid" onClick={() => meow()}>
              Log In
         </Button>
-        <Link to="Dashboard" >Already have an account? Click here to login.</Link>
+        <Link to="Home" >Don't Have An Account? Click here to sign up.</Link>
      
     </InputGroup>
     </>
