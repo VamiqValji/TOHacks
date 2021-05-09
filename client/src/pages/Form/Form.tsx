@@ -112,7 +112,7 @@ const Form: React.FC<FormProps> = () => {
             <Heading size={"lg"}>{/*<b>Title:</b> */}{form.title}</Heading>
             <Text size={"md"}>{/*<b>Description:</b> */}{form.description}</Text>
             <form onSubmit={(e) => handleFormSubmit(e)} ref={formContainerRef}>
-                <Input mt="4" mb="2" type="text" variant="filled" placeholder="Your name..." ref={nameInputRef} required/>
+                <Input mt="4" mb="2" type="text" variant="filled" placeholder="Your full name..." ref={nameInputRef} required/>
                 <Input mt="2" mb="2" type="text" variant="filled" placeholder="Your email..." ref={emailInputRef} required/>
                 {renderQuestions()}
                 <Flex justifyContent="center">

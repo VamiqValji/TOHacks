@@ -11,7 +11,7 @@ const CreateForm: React.FC<CreateFormProps> = () => {
     const toast = useToast();
 
     // const [questions, setQuestions] = useState<question[] | null>([]);
-    const [questionsLength, setQuestionsLength] = useState<number>(3);
+    const [questionsLength, setQuestionsLength] = useState<number>(8);
     const [buttonIsLoading, setButtonIsLoading] = useState<boolean>(false);
     
     const questionsContainer = React.useRef<HTMLDivElement | null>(null);
@@ -73,13 +73,60 @@ const CreateForm: React.FC<CreateFormProps> = () => {
             numbers.push(i + 1);
         }
 
-        return numbers.map((/*number*/) => {
+        return numbers.map((number, idx:number) => {
+
+            const getDefaultValue = (value: "QUESTION" | "DESCRIPTION") => {
+                if (number > 0 && number < 9) {
+                    switch (number) {
+                        case 1:
+                            console.log('case1')
+                            if (value === "QUESTION") return "What is your full name?";
+                            if (value === "DESCRIPTION") return "";
+                            break;
+                        case 2:
+                            if (value === "QUESTION") return "What is your home address?";
+                            if (value === "DESCRIPTION") return "";
+                            break;
+                        case 3:
+                            if (value === "QUESTION") return "What is your phone number?";
+                            if (value === "DESCRIPTION") return "";
+                            break;
+                        case 4:
+                            if (value === "QUESTION") return "What is the model of the vehicle?";
+                            if (value === "DESCRIPTION") return "";
+                            break;
+                        case 5:
+                            if (value === "QUESTION") return "Please provide a brief description of what occured.";
+                            if (value === "DESCRIPTION") return "";
+                            break;
+                        case 6:
+                            if (value === "QUESTION") return "What was the location of the accident?";
+                            if (value === "DESCRIPTION") return "";
+                            break;
+                        case 7:
+                            if (value === "QUESTION") return "Who's fault was it?";
+                            if (value === "DESCRIPTION") return "";
+                            break;
+                        case 7:
+                            if (value === "QUESTION") return "Was anyone injured?";
+                            if (value === "DESCRIPTION") return "";
+                            break;
+                        default:
+                            return "";
+                            break;
+                    }
+                    return "";
+                }
+            }
+
             const id = Math.random().toString(36).substring(7);
+            const questionDefaultValue = getDefaultValue("QUESTION");
+            const descriptionDefaultValue = getDefaultValue("DESCRIPTION");
             return (
                 <>
-                    <Box p={4} borderRadius={4} mt={2} bg={"blackAlpha.500"} className="question">
-                        <Input mb="2" type="text" variant="filled" placeholder="Question" required />
-                        <Input mb="2" type="text" variant="filled" placeholder="Question Description" required />
+                    <Box key={idx} p={4} borderRadius={4} mt={2} bg={"blackAlpha.500"} className="question">
+                        <Input mb="2" type="text" variant="filled" defaultValue={questionDefaultValue} placeholder="Question" required />
+                        <Input mb="2" type="text" variant="filled" defaultValue={descriptionDefaultValue} placeholder="Question Description" required />
                         <Input mb="2" type="text" value={id} style={{display:"none"}} required />
                     </Box>
                 </>
