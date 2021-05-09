@@ -10,7 +10,7 @@ const PleaseLogin: React.FC<PleaseLoginProps> = () => {
         <Flex mt={4} justifyContent="center" alignContent="center" flexDirection="column" w={"100%"}>
             <Box m={"0 auto"} >
                 <Heading>Please Login!</Heading>
-                <Link to="login"><Button mt={4} variant={"ghost"}>Take me to the login page!</Button></Link>
+                <Link to="login"><Button mt={4} variant={"outline"}>Take me to the login page!</Button></Link>
             </Box>
         </Flex>
     </>);
