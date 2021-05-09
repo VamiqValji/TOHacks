@@ -32,6 +32,9 @@ function App() {
             <li>
               <Link to="/forms">Forms</Link>
             </li>
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
           </ul>
         </nav>
         <Switch>

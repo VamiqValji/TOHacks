@@ -2,9 +2,9 @@ import React from 'react';
 import { Text, Input, InputGroup, Button, InputRightElement} from "@chakra-ui/react"
 import axios from 'axios';
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
+    // BrowserRouter as Router,
+    // Switch,
+    // Route,
     Link
   } from "react-router-dom";
 import { useDispatch } from 'react-redux';

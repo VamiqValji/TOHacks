@@ -3,7 +3,7 @@ import { SimpleGrid, Box, Image, Text} from "@chakra-ui/react"
 
 interface QuotesProps {}
 
-const Quotes: React.FC<QuotesProps> = ({}) => {
+const Quotes: React.FC<QuotesProps> = () => {
     
 
 
