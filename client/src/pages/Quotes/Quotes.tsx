@@ -6,6 +6,7 @@ import {
     Text,   
     Stack,
     Button,
+    Flex,
         } from "@chakra-ui/react"
 import PleaseLogin from '../../components/pleaseLogin/PleaseLogin';
 import { usersInterface } from '../../ts/interface/userInterface';
@@ -29,7 +30,7 @@ const Quotes: React.FC<QuotesProps> = () => {
         <Stack className = "container" mt = {"30px"} direction={["column", "row"]} divider={<StackDivider borderColor="gray.200" opacity="20%" />} spacing={12} width = {"75vw"} >
    
         <Box maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden" ml={"46px"}>
-      <Image src={"https://www.intactspecialty.com/sites/Corporate/images/logos/Intact-ss.png"} filter = {"drop-shadow(0 0 0.75rem crimson)"} />
+      <Image p ={"3"}src={"https://www.intactspecialty.com/sites/Corporate/images/logos/Intact-ss.png"} />
       <Box p="6">
         <Box d="flex" alignItems="baseline">
           <Box
@@ -46,7 +47,7 @@ const Quotes: React.FC<QuotesProps> = () => {
               </Box>
               <Box>
               <a className="textA" href="https://www.intact.ca/on/en/personal-insurance/vehicle/car.html" rel="noreferrer" target="_blank"><Text  >Intact Insurace</Text> </a>
-                <Text  mb={"auto"} pl ={"20px"}>Phone Number: 1-833-251-2128</Text>
+              <Flex justifyContent={"center"}> <Text  mb={"auto"} pl ={"20px"}>Phone Number: 1-833-251-2128</Text> </Flex>
             </Box>
         </Box>
 
@@ -54,7 +55,7 @@ const Quotes: React.FC<QuotesProps> = () => {
         
         
         <Box maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden">
-      <Image src={"https://www.pngkey.com/png/full/265-2654620_td-insurance-td-charitable-foundation-png-logo.png"}  filter = {"drop-shadow(0 0 0.75rem green)"}/>
+      <Image p ={"3"} src={"https://www.pngkey.com/png/full/265-2654620_td-insurance-td-charitable-foundation-png-logo.png"}  filter = {"drop-shadow(0 0 0.75rem green)"}/>
       <Box p="6">
         <Box d="flex" alignItems="baseline">
           <Box
@@ -71,12 +72,13 @@ const Quotes: React.FC<QuotesProps> = () => {
               </Box>
               <Box>
               <a className="textA" href="https://www.tdinsurance.com/melochemonnex" rel="noreferrer" target="_blank"><Text  >TD Insurace</Text> </a>
-                <Text  mb={"auto"} pl ={"20px"}>Phone Number: 1-877-777-7136</Text>
+              
+              <Flex justifyContent={"center"}>  <Text mb={"auto"} pl ={"20px"}>Phone Number: 1-877-777-7136</Text></Flex>
             </Box>
         </Box>
 
         <Box maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden">
-      <Image src={"https://legion.ca/images/default-source/member-logos/logo-belair-en-lk-850-pixels.png?sfvrsn=dbf905f1_0"}  />
+      <Image p ={"3"} src={"https://legion.ca/images/default-source/member-logos/logo-belair-en-lk-850-pixels.png?sfvrsn=dbf905f1_0"}  />
       <Box p="6">
         <Box d="flex" alignItems="baseline">
           <Box
@@ -93,12 +95,12 @@ const Quotes: React.FC<QuotesProps> = () => {
               </Box>
               <Box>
               <a className="textA" href="https://apps.belairdirect.com/AutoQuote/retrieve/retrievequote.do?method=load&organization_source=belairdirect&language=EN&province=ON&distributor=bel" rel="noreferrer" target="_blank"><Text  >Belairdirect Insurace</Text> </a>
-                <Text mb={"0px"} pl ={"20px"}>Phone Number: 1-833-938-3475</Text>
+              <Flex justifyContent={"center"}> <Text mb={"0px"} pl ={"20px"}>Phone Number: 1-833-938-3475</Text> </Flex>
             </Box>
         </Box>
         
         </Stack>
-        <Button rightIcon={<SearchIcon />} className="botButton" mcolorScheme="teal" mt={"30px"}size="xs" onClick={()=> window.open("https://www.fsco.gov.on.ca/en/auto/brochures/pages/brochure_claims.aspx", "_blank")}>
+        <Button rightIcon={<SearchIcon />} className="botButton" mcolorScheme="teal" mt={"30px"} size="md" onClick={()=> window.open("https://www.fsco.gov.on.ca/en/auto/brochures/pages/brochure_claims.aspx", "_blank")}>
              Need More Info?
         </Button>
 

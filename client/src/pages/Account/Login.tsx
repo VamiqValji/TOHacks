@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Input, InputGroup, Button, InputRightElement} from "@chakra-ui/react"
+import { Text, Input, InputGroup, Button, InputRightElement, useToast} from "@chakra-ui/react"
 import axios from 'axios';
 import {
     // BrowserRouter as Router,
@@ -25,7 +25,7 @@ const Login: React.FC<AccountProps> = () => {
     const [show, setShow] = React.useState(false)
     
     const [isLoad, setIsLoad] = React.useState(false);
-
+    const toast = useToast()
     const meow = async () =>  {
         setIsLoad(true);
         try {
@@ -35,8 +35,22 @@ const Login: React.FC<AccountProps> = () => {
             })
             console.log("success", res);
             dispatch(setUserData(res.data.data));
+            toast({
+                title: "Success!",
+                description: "You are now logged in.",
+                status: "success",
+                duration: 5000,
+                isClosable: true,
+              })
             setIsLoad(false);
         } catch (e) {
+            toast({
+                title: "Incorrect!",
+                description: "Please Try Again",
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+              })
             console.log("error:", e);
             setIsLoad(false);
         }
