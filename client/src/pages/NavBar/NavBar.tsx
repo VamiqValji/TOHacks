@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactNode from 'react';
 import {
   Box,
   Flex,
@@ -26,9 +25,11 @@ const NavBar: React.FC<NavBarProps> = () => {
             <li>
               <Link to="/login">Login</Link>
             </li>
+            <li>
+              <Link to="/quotes">Quotes</Link>
+            </li>
         </Flex>
       </Box>
     </>);
 }
-
 export default NavBar;
