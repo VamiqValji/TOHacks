@@ -1,5 +1,5 @@
 import { Box, Text } from '@chakra-ui/layout';
-import { Flex, Heading, HStack, Skeleton } from '@chakra-ui/react';
+import { Button, Flex, Heading, HStack, Skeleton } from '@chakra-ui/react';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -33,8 +33,8 @@ const Forms: React.FC<FormsProps> = () => {
     if (userState.userId === "") {
         return <PleaseLogin />;
     }
-
-    const changeModalState = () => {
+    
+    const invertModalState = () => {
         setModalOpen(!modalOpen);
     };
 
@@ -57,15 +57,34 @@ const Forms: React.FC<FormsProps> = () => {
                 <Heading size="md" fontWeight="normal" mt={4}>No forms created yet!</Heading>
             );
         } else if (formsData) {
+
+            const renderQuestions = (questions: question[]) => {
+                return questions.map((question, idx:number) => {
+                    return (<>
+                    <Box as="p" color={"lightgrey"} bg={"whiteAlpha.50"} borderRadius={4} p={4} mt={2} key={idx}>
+                        <Text ml="4" as="li">{question.question}</Text>
+                        <Text ml="4" as="li" color="grey">{question.description}</Text>
+                    </Box>
+                    </>);
+                });
+            };
+
             return formsData.map((form, idx:number) => {
                 return (
-                <Box cursor={"pointer"} mt={4} key={idx} bg={"blackAlpha.500"} p={4} borderRadius={4} onClick={() => {
-                    setModalOpen(prev => !prev);
-                }}>
+                <Box mt={4} key={idx} bg={"blackAlpha.500"} p={4} borderRadius={4} >
                     <Heading>{form.title}</Heading>
                     <Text className="grey">{form.description}</Text>
-                    <Box mt={2} as="p" color={"grey"}>Click me to view more details.</Box> 
-                    <FullModal open={modalOpen} invertModalState={changeModalState} />
+                    <Button mt={2} color={"grey"} onClick={invertModalState} colorScheme="brand" style={{color:"black"}}>More details</Button> 
+                    <FullModal open={modalOpen} invertModalState={invertModalState}>
+                        <Flex>
+                            <Box>
+                                <Heading as="h3">Title: {form.title}</Heading>
+                                <Text><b>Description:</b> {form.description}</Text>
+                                <Text><b>ID:</b> {form.formId} </Text>
+                                <Text><b>Questions:</b> <br /> {renderQuestions(form.questions)}</Text>
+                            </Box>
+                        </Flex>
+                    </FullModal>
                 </Box>);
             });
         }
@@ -82,44 +101,9 @@ const Forms: React.FC<FormsProps> = () => {
                     </HStack>
                 // </ModalIndex>
             );
-        } else if (formsData.length === 0) {
-            return (
-                // <ModalIndex>
-                //     <Heading size="md">No forms created yet!</Heading>
-                // </ModalIndex>
-                <Heading size="md" fontWeight="normal" mt={4}>No forms created yet!</Heading>
-            );
-        } else if (formsData) {
-
-            const renderQuestions = (questions: question[]) => {
-                return questions.map((question, idx:number) => {
-                    return (<>
-                    <Box as="p" className="muted" key={idx} bg={"whiteAlpha.50"} borderRadius={4}>
-                        {question.question}
-                        {question.description}
-                    </Box>
-                    </>);
-                });
-            };
-
-            return formsData.map((form, idx:number) => {
-                return (
-                <Box cursor={"pointer"} mt={4} key={idx} bg={"blackAlpha.500"} p={4} borderRadius={4} onClick={() => {
-                    setModalOpen(!modalOpen);
-                }}>
-                    <Heading>{form.title}</Heading>
-                    <Text className="grey">{form.description}</Text>
-                    <Box mt={2} as="p" color={"grey"}>Click me to view more details.</Box> 
-                    <FullModal open={modalOpen} invertModalState={changeModalState}>
-                        <Heading as="h1">Title: {form.title}</Heading>
-                        <Heading as="h2">Description: {form.description}</Heading>
-                        <Heading as="h3">ID: {form.formId} </Heading>
-                        <Heading as="h4">Questions: <br /> {renderQuestions(form.questions)}</Heading>
-                    </FullModal>
-                </Box>);
-            });
         }
     };
+ 
  
     return (
     <>
