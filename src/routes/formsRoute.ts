@@ -39,7 +39,7 @@ router.post("/create", async (req, res) => {
     if (!foundUser) return res.status(400).json({success: false, message: "Invalid userId"});
 
     let newForm:mongoose.Document = new forms({
-        description, formId: Date.now().toString(), questions, title
+        ownerUserId: userId, description, formId: Date.now().toString(), questions, title
     });
 
     foundUser.forms.push({ pointer: newForm.id });
