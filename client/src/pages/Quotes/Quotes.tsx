@@ -10,6 +10,7 @@ import {
 import PleaseLogin from '../../components/pleaseLogin/PleaseLogin';
 import { usersInterface } from '../../ts/interface/userInterface';
 import { useSelector } from 'react-redux';
+import { SearchIcon } from '@chakra-ui/icons';
 
 interface QuotesProps {}
 
@@ -97,7 +98,7 @@ const Quotes: React.FC<QuotesProps> = () => {
         </Box>
         
         </Stack>
-        <Button className="botButton" mcolorScheme="teal" mt={"30px"}size="xs" onClick={()=> window.open("https://www.fsco.gov.on.ca/en/auto/brochures/pages/brochure_claims.aspx", "_blank")}>
+        <Button rightIcon={<SearchIcon />} className="botButton" mcolorScheme="teal" mt={"30px"}size="xs" onClick={()=> window.open("https://www.fsco.gov.on.ca/en/auto/brochures/pages/brochure_claims.aspx", "_blank")}>
              Need More Info?
         </Button>
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Input, InputGroup, Button, InputRightElement} from "@chakra-ui/react"
+import { Text, Input, InputGroup, Button, InputRightElement, useToast} from "@chakra-ui/react"
 import axios from 'axios';
 import {
     Link
@@ -21,11 +21,12 @@ const Signup: React.FC<AccountProps> = () => {
     const [show, setShow] = React.useState(false)
     
     const [isLoad, setIsLoad] = React.useState(false);
-
-    const meow = async () =>  {
+    const toast = useToast()
+    const createAccount = async () =>  {
         if(!password) return;
         if(password === confirmPassword) {
             setIsLoad(true);
+            try {
             const {data} =  await axios.post("http://localhost:3001", {
                 username,
                 password,
@@ -33,6 +34,16 @@ const Signup: React.FC<AccountProps> = () => {
             })
             setIsLoad(false);
             dispatch(setUserData(data.data));
+            toast({
+                title: "Account created.",
+                description: "We've created your account for you.",
+                status: "success",
+                duration: 5000,
+                isClosable: true,
+              })
+        } catch (e) {
+            console.log("error: ", e)
+        }
         } else {
             alert("Passwords do not match!")
         }
@@ -74,8 +85,8 @@ const Signup: React.FC<AccountProps> = () => {
       </InputRightElement>
       </InputGroup>
         
-         <Button isLoading={isLoad} colorScheme="teal" variant="solid" onClick={() => meow()}>
-             fruit
+         <Button isLoading={isLoad} colorScheme="teal" variant="solid" onClick={() => createAccount()}>
+             Sign Up
         </Button>
         <Link to="login" >Already have an account? Click here to login.</Link>
      
