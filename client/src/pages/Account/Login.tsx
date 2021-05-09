@@ -10,12 +10,15 @@ import {
 import { useDispatch } from 'react-redux';
 import { setUserData } from '../../redux/actions/userAction';
 
-interface HomeProps {}
+interface AccountProps {}
 
-const Login: React.FC<HomeProps> = () => {
+const Login: React.FC<AccountProps> = () => {
 
     const dispatch = useDispatch();
 
+
+   
+    
     const [username, setUsername] = React.useState("");
     const [password, setPassword] = React.useState("");
 
@@ -24,6 +27,7 @@ const Login: React.FC<HomeProps> = () => {
     const [isLoad, setIsLoad] = React.useState(false);
 
     const meow = async () =>  {
+        setIsLoad(true);
         try {
             const res = await axios.post("http://localhost:3001/users/login",{
                 name: username,
@@ -31,8 +35,10 @@ const Login: React.FC<HomeProps> = () => {
             })
             console.log("success", res);
             dispatch(setUserData(res.data.data));
+            setIsLoad(false);
         } catch (e) {
             console.log("error:", e);
+            setIsLoad(false);
         }
     }
 
