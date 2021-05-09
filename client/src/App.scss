@@ -52,6 +52,9 @@
   transition: 0.2s;
   cursor: pointer;
 }
+.pop {
+  overflow-y: auto;
+}
 .pop button a {
   text-decoration: none;
   color: black;
@@ -59,4 +62,18 @@
 .pop button:hover {
   /* color: rgba(0, 0, 0, 0.8); */
   background: rgba(255, 255, 255, 0.8);
+}
+
+.navContainer {
+  background: rgba(0, 0, 0, 0.4);
+  width: 100vw;
+  li {
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    margin: 0.5rem;
+    list-style-type: none;
+    a {
+      text-decoration: none;
+    }
+  }
 }
