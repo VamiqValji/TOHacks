@@ -1,5 +1,5 @@
 import { Box, Text } from '@chakra-ui/layout';
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Button, Flex, Heading, HStack, Skeleton } from '@chakra-ui/react';
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Button, Flex, Heading, HStack, Input, Skeleton } from '@chakra-ui/react';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -7,6 +7,7 @@ import FullModal from '../../components/fullModal';
 // import ModalIndex from '../../components/ModalIndex';
 import PleaseLogin from '../../components/pleaseLogin/PleaseLogin';
 import { usersInterface, form, question, response, formResponse } from "../../ts/interface/userInterface";
+import CreateForm from './components/CreateForm';
 
 interface FormsProps {}
 
@@ -14,6 +15,8 @@ const Forms: React.FC<FormsProps> = () => {
 
     const [formsData, setFormsData] = useState<form[] | null>(null);
     const [modalOpen, setModalOpen] = useState<boolean>(false);
+    const [whichModalOpen, setWhichModalOpen] = useState<string>("");
+
     const userState:usersInterface = useSelector((state:any) => state.user);
 
     const fetchForms = async () => {
@@ -30,7 +33,7 @@ const Forms: React.FC<FormsProps> = () => {
         fetchForms();
     }, []);
 
-    if (userState.userId === "") {
+    if (userState.userId === "") { // not logged in
         return <PleaseLogin />;
     }
 
@@ -98,10 +101,10 @@ const Forms: React.FC<FormsProps> = () => {
             return formsData.map((form, idx:number) => {
                 return (
                 <Box mt={4} key={idx} bg={"blackAlpha.500"} p={4} borderRadius={4} >
-                    <Heading>{form.title}</Heading>
+                    <Heading size="lg">{form.title}</Heading>
                     <Text className="grey">{form.description}</Text>
-                    <Button mt={2} color={"grey"} onClick={invertModalState} colorScheme="brand" style={{color:"black"}}>More details</Button> 
-                    <FullModal open={modalOpen} invertModalState={invertModalState}>
+                    <Button mt={2} color={"grey"} onClick={() => { invertModalState(); setWhichModalOpen(form.formId); }} colorScheme="brand" style={{color:"black"}}>More details</Button> 
+                    <FullModal open={form.formId === whichModalOpen && modalOpen ? true : false} invertModalState={invertModalState}>
                         <Flex>
                             <Box>
                                 <Heading as="h3">Title: {form.title}</Heading>
@@ -144,31 +147,16 @@ const Forms: React.FC<FormsProps> = () => {
         }
     };
 
-    const renderFormsResponses = () => {
-        if (formsData === null) {
-            return (
-                // <ModalIndex>
-                    <HStack>
-                        <Skeleton height="20px"></Skeleton>
-                        <Skeleton height="20px"></Skeleton>
-                        <Skeleton height="20px"></Skeleton>
-                    </HStack>
-                // </ModalIndex>
-            );
-        }
-    };
- 
- 
     return (
     <>
-        <Flex w={"50vw"} m={"0 auto"} mt={4} >
+        <Flex w={"50vw"} m={"0 auto"} mt={8} >
             <Box className="leftContainer" width={"45%"}>
                 <Heading>Your Forms</Heading>
                 {renderFormsData()}
             </Box>
             <Box className="rightContainer" width={"45%"} ml={4}>
-                <Heading>Your Forms' Responses</Heading>
-                {renderFormsResponses()}
+                <Heading>Create A Form</Heading>
+                <CreateForm />
             </Box>
         </Flex>
     </>);
