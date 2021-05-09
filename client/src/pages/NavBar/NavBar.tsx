@@ -14,19 +14,16 @@ const NavBar: React.FC<NavBarProps> = () => {
       <Box as="nav">
         <Flex m={"auto"}as="ul" className="navContainer">
             <li>
-              <img src={img} alt="logo" width={"30%"}/>
-            </li>
-            <li>
-              <Link to="/">Home</Link>
+              <Link to="/"><img src={img} alt="logo" width={"30rem"} height="auto"/></Link>
             </li>
             <li>
               <Link to="/forms">Forms</Link>
             </li>
             {/* /forms: create forms */}
             {/* /form: reply to a form with attached id in url */}
-            <li>
+            {/* <li>
               <Link to="/form/1620530725307">TEST LINK</Link>
-            </li>
+            </li> */}
             <li>
               <Link to="/quotes">Quotes</Link>
             </li>

@@ -134,3 +134,7 @@
 .customScrollbarLight::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.3);
 }
+
+.whiteFilterDropShadow {
+  filter: drop-shadow(white 0rem 0rem 0.2rem);
+}

@@ -7,6 +7,7 @@ import {
     Stack,
     Button,
     Flex,
+    Heading,
         } from "@chakra-ui/react"
 import PleaseLogin from '../../components/pleaseLogin/PleaseLogin';
 import { usersInterface } from '../../ts/interface/userInterface';
@@ -27,10 +28,13 @@ const Quotes: React.FC<QuotesProps> = () => {
     
     return (
     <>  
+        <Flex justifyContent={"center"} m={8}>
+            <Heading size="2xl">Quotes</Heading>
+        </Flex>
         <Stack className = "container" mt = {"30px"} direction={["column", "row"]} divider={<StackDivider borderColor="gray.200" opacity="20%" />} spacing={12} width = {"75vw"} >
    
         <Box maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden" ml={"46px"}>
-      <Image p ={"3"}src={"https://www.intactspecialty.com/sites/Corporate/images/logos/Intact-ss.png"} />
+      <Image className="whiteFilterDropShadow" p ={"3"}src={"https://www.intactspecialty.com/sites/Corporate/images/logos/Intact-ss.png"} />
       <Box p="6">
         <Box d="flex" alignItems="baseline">
           <Box

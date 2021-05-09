@@ -11,8 +11,8 @@ const Home: React.FC<HomeProps> = () => {
 
     return (
     <>
-        <Heading className= "container" mt={"20px"} textAlign = {"center"} color={"#76E4F7"}>Formae. </Heading>
-        <Heading as="h2" className= "container" textAlign = {"center"}> Saving you money one form at a time.</Heading>
+        <Heading size={"2xl"} className= "container" mt={"12"} textAlign = {"center"} color={"#76E4F7"}>Formae. </Heading>
+        <Heading as="h2" size={"lg"} className= "container" textAlign = {"center"} fontWeight={"normal"}> Saving you money one form at a time.</Heading>
         <br></br>
         <br></br>
         <br></br>
